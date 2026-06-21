@@ -5,11 +5,17 @@ using NewMicroservice.Shared.Services;
 
 namespace NewMicroservice.Payment.Api.Feature.Payments
 {
-    public class CreatePaymentCommandHandler(AppDbContext appDbContext, IIdentityService idenIdentityService)
+    public class CreatePaymentCommandHandler(AppDbContext appDbContext, IIdentityService identityService,
+    IHttpContextAccessor httpContextAccessor)
        : IRequestHandler<CreatePaymentCommand, ServiceResult<Guid>>
     {
         public async Task<ServiceResult<Guid>> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
         {
+
+            var userId = identityService.UserId;
+            var userName = identityService.UserName;
+            var roles = identityService.Roles;
+
             var (isSuccess, errorMessage) = await ExternalPaymentProcessAsync(request.CardNumber,
                 request.CardHolderName,
                 request.CardExpirationDate, request.CardSecurityNumber, request.Amount);
@@ -20,8 +26,6 @@ namespace NewMicroservice.Payment.Api.Feature.Payments
                 return ServiceResult<Guid>.Error("Payment Failed", errorMessage!, System.Net.HttpStatusCode.BadRequest);
             }
 
-
-            var userId = idenIdentityService.GetUserId;
             var newPayment = new Repositories.Payment(userId, request.OrderCode, request.Amount);
             newPayment.SetStatus(Repositories.PaymentStatus.Success);
 

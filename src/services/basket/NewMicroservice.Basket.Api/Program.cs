@@ -2,6 +2,7 @@ using NewMicroservice.Basket.Api;
 using NewMicroservice.Basket.Api.Features;
 using NewMicroservice.Basket.Api.Features.Baskets;
 using NewMicroservice.Shared.Extensions;
+using NewMicroservice.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 
 builder.Services.AddVersioningExt();
-
+builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,5 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.AddBasketGroupEndpointExt(app.AddVersionSetExt());
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

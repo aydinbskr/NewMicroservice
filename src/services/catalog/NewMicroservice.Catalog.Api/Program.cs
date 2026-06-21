@@ -4,6 +4,7 @@ using NewMicroservice.Catalog.Api.Features.Courses;
 using NewMicroservice.Catalog.Api.Options;
 using NewMicroservice.Catalog.Api.Repositories;
 using NewMicroservice.Shared.Extensions;
+using NewMicroservice.Shared.Options;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,7 @@ builder.Services.AddDatabaseServiceExt();
 builder.Services.AddCommonServiceExt(typeof(CatalogAssembly));
 
 builder.Services.AddVersioningExt();
-
+builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);
 var app = builder.Build();
 
 app.AddSeedDataExt().ContinueWith(x =>
@@ -31,5 +32,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

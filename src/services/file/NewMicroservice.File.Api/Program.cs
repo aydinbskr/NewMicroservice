@@ -2,6 +2,7 @@ using Microsoft.Extensions.FileProviders;
 using NewMicroservice.File.Api;
 using NewMicroservice.File.Api.Features.File;
 using NewMicroservice.Shared.Extensions;
+using NewMicroservice.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,7 @@ builder.Services.AddCommonServiceExt(typeof(FileAssembly));
 //builder.Services.AddMasstransitExt(builder.Configuration);
 builder.Services.AddVersioningExt();
 
-
+builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);
 var app = builder.Build();
 
 app.AddFileGroupEndpointExt(app.AddVersionSetExt());
@@ -30,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
-
+app.UseAuthentication();
+app.UseAuthentication();
 app.Run();
 

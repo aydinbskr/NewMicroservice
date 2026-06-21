@@ -49,6 +49,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "payment", "payment", "{8CEC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewMicroservice.Payment.Api", "src\services\payment\NewMicroservice.Payment.Api\NewMicroservice.Payment.Api.csproj", "{4400B34A-8286-4578-B703-BE48E950A6ED}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gateway", "gateway", "{4EEA6990-A43D-4670-A626-809828D8ADFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewMicroservice.Gateway", "src\services\gateway\NewMicroservice.Gateway\NewMicroservice.Gateway.csproj", "{222BF1D3-96B9-469E-82CB-7CF5A92F964B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +103,10 @@ Global
 		{4400B34A-8286-4578-B703-BE48E950A6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4400B34A-8286-4578-B703-BE48E950A6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4400B34A-8286-4578-B703-BE48E950A6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{222BF1D3-96B9-469E-82CB-7CF5A92F964B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222BF1D3-96B9-469E-82CB-7CF5A92F964B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222BF1D3-96B9-469E-82CB-7CF5A92F964B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{222BF1D3-96B9-469E-82CB-7CF5A92F964B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -125,6 +133,8 @@ Global
 		{A5FFC2ED-42AB-49E8-96EE-743147D0444C} = {216E947A-2EBC-4A10-9C64-ADA7619C26F9}
 		{8CEC9904-79A6-40E6-BE6C-2C418FD1A2EC} = {7249F002-0878-4C2C-8206-197749E35DCA}
 		{4400B34A-8286-4578-B703-BE48E950A6ED} = {8CEC9904-79A6-40E6-BE6C-2C418FD1A2EC}
+		{4EEA6990-A43D-4670-A626-809828D8ADFB} = {7249F002-0878-4C2C-8206-197749E35DCA}
+		{222BF1D3-96B9-469E-82CB-7CF5A92F964B} = {4EEA6990-A43D-4670-A626-809828D8ADFB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB0FA828-6673-4701-B7F9-2A347B4F5EC9}

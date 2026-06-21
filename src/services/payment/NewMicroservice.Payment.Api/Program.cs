@@ -3,6 +3,7 @@ using NewMicroservice.Payment.Api;
 using NewMicroservice.Payment.Api.Feature;
 using NewMicroservice.Payment.Api.Repositories;
 using NewMicroservice.Shared.Extensions;
+using NewMicroservice.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddCommonServiceExt(typeof(PaymentAssembly));
 
 builder.Services.AddDbContext<AppDbContext>(options => { options.UseInMemoryDatabase("payment-in-memory-db"); });
 
+builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);
+
 var app = builder.Build();
 
 app.AddPaymentGroupEndpointExt(app.AddVersionSetExt());
@@ -22,6 +25,9 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
 

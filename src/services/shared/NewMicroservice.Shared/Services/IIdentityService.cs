@@ -8,7 +8,9 @@ namespace NewMicroservice.Shared.Services
 {
     public interface IIdentityService
     {
-        public Guid GetUserId { get; }
+        public Guid UserId { get; }
         public string UserName { get; }
+
+        List<string> Roles { get; }
     }
 }

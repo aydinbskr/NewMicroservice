@@ -17,7 +17,7 @@ namespace NewMicroservice.Shared.Extensions
 
             services.AddFluentValidation();
             services.AddValidatorsFromAssemblyContaining(assembly);
-            services.AddScoped<IIdentityService, IdentityServiceFake>();
+            services.AddScoped<IIdentityService, IdentityService>();
 
            
             TypeAdapterConfig.GlobalSettings.Scan(assembly.Assembly);

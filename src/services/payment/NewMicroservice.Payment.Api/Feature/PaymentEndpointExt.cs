@@ -9,7 +9,8 @@ namespace NewMicroservice.Payment.Api.Feature
         public static void AddPaymentGroupEndpointExt(this WebApplication app, ApiVersionSet apiVersionSet)
         {
             app.MapGroup("api/v{version:apiVersion}/payments").WithTags("payments").WithApiVersionSet(apiVersionSet)
-                .CreatePaymentGroupItemEndpoint().GetAllPaymentsByUserIdGroupItemEndpoint();
+                .CreatePaymentGroupItemEndpoint()
+                .GetAllPaymentsByUserIdGroupItemEndpoint();
         }
     }
 }

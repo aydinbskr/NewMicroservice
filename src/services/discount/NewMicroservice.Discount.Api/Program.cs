@@ -2,6 +2,7 @@ using NewMicroservice.Discount.Api;
 using NewMicroservice.Discount.Api.Features.Discounts;
 using NewMicroservice.Discount.Api.Options;
 using NewMicroservice.Discount.Api.Repositories;
+using NewMicroservice.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddDatabaseServiceExt();
 builder.Services.AddCommonServiceExt(typeof(DiscountAssembly));
 builder.Services.AddVersioningExt();
 
-
+builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);
 var app = builder.Build();
 
 app.AddDiscountGroupEndpointExt(app.AddVersionSetExt());
@@ -25,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.Run();
 

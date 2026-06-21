@@ -7,6 +7,7 @@ using NewMicroservice.Order.Persistence;
 using NewMicroservice.Order.Persistence.Repositories;
 using NewMicroservice.Order.Persistence.UnitOfWork;
 using NewMicroservice.Shared.Extensions;
+using NewMicroservice.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddVersioningExt();
+builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);
 var app = builder.Build();
 
 app.AddOrderGroupEndpointExt(app.AddVersionSetExt());
@@ -33,6 +35,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
 

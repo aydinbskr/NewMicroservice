@@ -21,11 +21,11 @@ namespace NewMicroservice.Catalog.Api.Repositories
             {
                 var categories = new List<Category>
             {
-                new() { Id = NewId.NextSequentialGuid(), Name = "Development" },
-                new() { Id = NewId.NextSequentialGuid(), Name = "Business" },
-                new() { Id = NewId.NextSequentialGuid(), Name = "IT & Software" },
-                new() { Id = NewId.NextSequentialGuid(), Name = "Office Productivity" },
-                new() { Id = NewId.NextSequentialGuid(), Name = "Personal Development" }
+                new() { Id = Guid.CreateVersion7(), Name = "Development" },
+                new() { Id = Guid.CreateVersion7(), Name = "Business" },
+                new() { Id = Guid.CreateVersion7(), Name = "IT & Software" },
+                new() { Id = Guid.CreateVersion7(), Name = "Office Productivity" },
+                new() { Id = Guid.CreateVersion7(), Name = "Personal Development" }
             };
 
                 dbContext.Categories.AddRange(categories);
@@ -36,13 +36,13 @@ namespace NewMicroservice.Catalog.Api.Repositories
             {
                 var category = await dbContext.Categories.FirstAsync();
 
-                var randomUserId = NewId.NextGuid();
+                var randomUserId = Guid.NewGuid();
 
                 List<Course> courses =
                 [
                     new()
                 {
-                    Id = NewId.NextSequentialGuid(),
+                    Id = Guid.CreateVersion7(),
                     Name = "C#",
                     Description = "C# Course",
                     Price = 100,
@@ -54,7 +54,7 @@ namespace NewMicroservice.Catalog.Api.Repositories
 
                 new()
                 {
-                    Id = NewId.NextSequentialGuid(),
+                    Id = Guid.CreateVersion7(),
                     Name = "Java",
                     Description = "Java Course",
                     Price = 200,
@@ -66,7 +66,7 @@ namespace NewMicroservice.Catalog.Api.Repositories
 
                 new()
                 {
-                    Id = NewId.NextSequentialGuid(),
+                    Id = Guid.CreateVersion7(),
                     Name = "Python",
                     Description = "Python Course",
                     Price = 300,

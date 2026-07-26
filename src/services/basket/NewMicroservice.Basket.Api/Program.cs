@@ -3,12 +3,13 @@ using NewMicroservice.Basket.Api.Features;
 using NewMicroservice.Basket.Api.Features.Baskets;
 using NewMicroservice.Shared.Extensions;
 using NewMicroservice.Shared.Options;
+using NewMicroservice.Bus;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
 builder.Services.AddCommonServiceExt(typeof(BasketAssembly));
-//builder.Services.AddMasstransitExt(builder.Configuration);
+builder.Services.AddMasstransitExt(builder.Configuration);
 builder.Services.AddScoped<BasketService>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {

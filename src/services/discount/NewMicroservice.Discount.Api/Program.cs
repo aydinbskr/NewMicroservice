@@ -14,6 +14,7 @@ builder.Services.AddOptionsExt();
 builder.Services.AddDatabaseServiceExt();
 
 builder.Services.AddCommonServiceExt(typeof(DiscountAssembly));
+builder.Services.AddMasstransitExt(builder.Configuration);
 builder.Services.AddVersioningExt();
 
 builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);

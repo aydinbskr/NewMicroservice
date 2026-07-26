@@ -1,13 +1,14 @@
 ﻿using MapsterMapper;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using NewMicroservice.Bus.Commands;
 using NewMicroservice.Catalog.Api.Repositories;
 using NewMicroservice.Shared;
 using System.Net;
 
 namespace NewMicroservice.Catalog.Api.Features.Courses.Create
 {
-    public class CreateCourseCommandHandler(AppDbContext context)
+    public class CreateCourseCommandHandler(AppDbContext context, IPublishEndpoint publishEndpoint)
         : IRequestHandler<CreateCourseCommand, ServiceResult<Guid>>
     {
         public async Task<ServiceResult<Guid>> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
@@ -33,7 +34,7 @@ namespace NewMicroservice.Catalog.Api.Features.Courses.Create
 
             var newCourse = request.Adapt<Course>();
             newCourse.Created = DateTime.Now;
-            newCourse.Id = NewId.NextSequentialGuid(); // index performance
+            newCourse.Id = Guid.CreateVersion7(); // index performance
             newCourse.Feature = new Feature()
             {
                 Duration = 10, // calculate by course video
@@ -43,6 +44,20 @@ namespace NewMicroservice.Catalog.Api.Features.Courses.Create
 
             context.Courses.Add(newCourse);
             await context.SaveChangesAsync(cancellationToken);
+
+            if (request.Picture is not null)
+            {
+                using var memoryStream = new MemoryStream();
+                await request.Picture.CopyToAsync(memoryStream, cancellationToken);
+
+                var PictureAsByteArray = memoryStream.ToArray();
+
+
+                var uploadCoursePictureCommand =
+                    new UploadCoursePictureCommand(newCourse.Id, PictureAsByteArray, request.Picture.FileName);
+
+                await publishEndpoint.Publish(uploadCoursePictureCommand, cancellationToken);
+            }
 
             return ServiceResult<Guid>.SuccessAsCreated(newCourse.Id, $"/api/courses/{newCourse.Id}");
         }

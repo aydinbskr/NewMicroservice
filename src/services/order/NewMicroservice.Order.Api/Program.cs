@@ -8,6 +8,7 @@ using NewMicroservice.Order.Persistence.Repositories;
 using NewMicroservice.Order.Persistence.UnitOfWork;
 using NewMicroservice.Shared.Extensions;
 using NewMicroservice.Shared.Options;
+using NewMicroservice.Bus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.AddCommonServiceExt(typeof(OrderApplicationAssembly));
+builder.Services.AddCommonMasstransitExt(builder.Configuration);
 builder.Services.AddDbContext<AppDbContext>(option => { option.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")); });
 builder.Services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
 

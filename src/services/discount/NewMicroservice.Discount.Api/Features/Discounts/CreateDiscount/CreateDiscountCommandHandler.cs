@@ -22,7 +22,7 @@ namespace NewMicroservice.Discount.Api.Features.Discounts.CreateDiscount
 
             var discount = new Repositories.Discount
             {
-                Id = NewId.NextSequentialGuid(),
+                Id = Guid.CreateVersion7(),
                 Code = request.Code,
                 Created = DateTime.Now,
                 Rate = request.Rate,

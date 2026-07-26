@@ -25,7 +25,7 @@ namespace NewMicroservice.Catalog.Api.Features.Categories.Create
             var category = new Category
             {
                 Name = request.Name,
-                Id = NewId.NextSequentialGuid()
+                Id = Guid.CreateVersion7()
             };
 
 

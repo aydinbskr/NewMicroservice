@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using MassTransit;
+using MediatR;
+using NewMicroservice.Bus.Events;
 using NewMicroservice.Order.Application.Contracts.Repositories;
 using NewMicroservice.Order.Application.Contracts.UnitOfWork;
 using NewMicroservice.Order.Domain.Entities;
@@ -17,7 +19,8 @@ namespace NewMicroservice.Order.Application.Features.Orders.Create
     IOrderRepository orderRepository,
     IGenericRepository<int, Address> addressRepository,
     IIdentityService identityService,
-    IUnitOfWork unitOfWork) : IRequestHandler<CreateOrderCommand, ServiceResult>
+    IUnitOfWork unitOfWork,
+    IPublishEndpoint publishEndpoint) : IRequestHandler<CreateOrderCommand, ServiceResult>
     {
         public async Task<ServiceResult> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
@@ -36,7 +39,7 @@ namespace NewMicroservice.Order.Application.Features.Orders.Create
             };
 
 
-            var order = Domain.Entities.Order.CreateUnPaidOrder(identityService.GetUserId, request.DiscountRate,
+            var order = Domain.Entities.Order.CreateUnPaidOrder(identityService.UserId, request.DiscountRate,
                 newAddress.Id);
             foreach (var orderItem in request.Items)
                 order.AddOrderItem(orderItem.ProductId, orderItem.ProductName, orderItem.UnitPrice);
@@ -64,8 +67,8 @@ namespace NewMicroservice.Order.Application.Features.Orders.Create
             await unitOfWork.CommitAsync(cancellationToken);
 
 
-            //await publishEndpoint.Publish(new OrderCreatedEvent(order.Id, identityService.GetUserId),
-            //    cancellationToken);
+            await publishEndpoint.Publish(new OrderCreatedEvent(order.Id, identityService.UserId),
+               cancellationToken);
             return ServiceResult.SuccessAsNoContent();
         }
     }

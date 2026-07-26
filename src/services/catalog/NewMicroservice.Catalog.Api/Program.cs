@@ -5,6 +5,7 @@ using NewMicroservice.Catalog.Api.Options;
 using NewMicroservice.Catalog.Api.Repositories;
 using NewMicroservice.Shared.Extensions;
 using NewMicroservice.Shared.Options;
+using NewMicroservice.Bus;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddOptionsExt();
 builder.Services.AddDatabaseServiceExt();
 builder.Services.AddCommonServiceExt(typeof(CatalogAssembly));
-
+builder.Services.AddMasstransitExt(builder.Configuration);
 builder.Services.AddVersioningExt();
 builder.Services.AddAuthenticationAndAuthorizationExt(builder.Configuration);
 var app = builder.Build();

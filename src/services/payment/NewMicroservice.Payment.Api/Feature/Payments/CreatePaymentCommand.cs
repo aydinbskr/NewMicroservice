@@ -8,5 +8,5 @@ namespace NewMicroservice.Payment.Api.Feature.Payments
         string CardHolderName,
         string CardExpirationDate,
         string CardSecurityNumber,
-        decimal Amount) : IRequestByServiceResult<Guid>;
+        decimal Amount) : IRequestByServiceResult<CreatePaymentResponse>;
 }

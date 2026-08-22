@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using MediatR;
 using NewMicroservice.Bus.Events;
+using NewMicroservice.Order.Application.Contracts.Refit.PaymentService;
 using NewMicroservice.Order.Application.Contracts.Repositories;
 using NewMicroservice.Order.Application.Contracts.UnitOfWork;
 using NewMicroservice.Order.Domain.Entities;
@@ -20,7 +21,8 @@ namespace NewMicroservice.Order.Application.Features.Orders.Create
     IGenericRepository<int, Address> addressRepository,
     IIdentityService identityService,
     IUnitOfWork unitOfWork,
-    IPublishEndpoint publishEndpoint) : IRequestHandler<CreateOrderCommand, ServiceResult>
+    IPublishEndpoint publishEndpoint,
+    IPaymentService paymentService) : IRequestHandler<CreateOrderCommand, ServiceResult>
     {
         public async Task<ServiceResult> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
@@ -52,16 +54,16 @@ namespace NewMicroservice.Order.Application.Features.Orders.Create
             await unitOfWork.CommitAsync(cancellationToken);
 
 
-            //var paymentRequest = new CreatePaymentRequest(order.Code, request.Payment.CardNumber,
-            //    request.Payment.CardHolderName, request.Payment.Expiration, request.Payment.Cvc, order.TotalPrice);
-            //var paymentResponse = await paymentService.CreateAsync(paymentRequest);
+            var paymentRequest = new CreatePaymentRequest(order.Code, request.Payment.CardNumber,
+                request.Payment.CardHolderName, request.Payment.Expiration, request.Payment.Cvc, order.TotalPrice);
+            var paymentResponse = await paymentService.CreateAsync(paymentRequest);
 
 
-            //if (!paymentResponse.Status)
-            //    return ServiceResult.Error(paymentResponse.ErrorMessage!, HttpStatusCode.InternalServerError);
+            if (!paymentResponse.Status)
+                return ServiceResult.Error(paymentResponse.ErrorMessage!, HttpStatusCode.InternalServerError);
 
 
-            //order.SetPaidStatus(paymentResponse.PaymentId!.Value);
+            order.SetPaidStatus(paymentResponse.PaymentId!.Value);
 
             orderRepository.Update(order);
             await unitOfWork.CommitAsync(cancellationToken);

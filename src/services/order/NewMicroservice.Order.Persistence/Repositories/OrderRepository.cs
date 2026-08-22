@@ -16,9 +16,13 @@ namespace NewMicroservice.Order.Persistence.Repositories
             return context.Orders.Include(x => x.OrderItems).Where(x => x.BuyerId == buyerId).OrderByDescending(x => x.Created).ToListAsync();
         }
 
-        public Task SetStatus(string orderCode, Guid paymentId, OrderStatus status)
+        public async Task SetStatus(string orderCode, Guid paymentId, OrderStatus status)
         {
-            throw new NotImplementedException();
+            var order = await context.Orders.FirstAsync(x => x.Code == orderCode);
+
+            order.Status = status;
+            order.PaymentId = paymentId;
+            context.Update(order);
         }
     }
 }

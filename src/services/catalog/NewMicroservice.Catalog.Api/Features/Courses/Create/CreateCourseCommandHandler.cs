@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using NewMicroservice.Bus.Commands;
 using NewMicroservice.Catalog.Api.Repositories;
 using NewMicroservice.Shared;
+using NewMicroservice.Shared.Services;
 using System.Net;
 
 namespace NewMicroservice.Catalog.Api.Features.Courses.Create
 {
-    public class CreateCourseCommandHandler(AppDbContext context, IPublishEndpoint publishEndpoint)
+    public class CreateCourseCommandHandler(AppDbContext context, IPublishEndpoint publishEndpoint, IIdentityService identityService)
         : IRequestHandler<CreateCourseCommand, ServiceResult<Guid>>
     {
         public async Task<ServiceResult<Guid>> Handle(CreateCourseCommand request, CancellationToken cancellationToken)
@@ -34,6 +35,7 @@ namespace NewMicroservice.Catalog.Api.Features.Courses.Create
 
             var newCourse = request.Adapt<Course>();
             newCourse.Created = DateTime.Now;
+            newCourse.UserId = identityService.UserId;
             newCourse.Id = Guid.CreateVersion7(); // index performance
             newCourse.Feature = new Feature()
             {

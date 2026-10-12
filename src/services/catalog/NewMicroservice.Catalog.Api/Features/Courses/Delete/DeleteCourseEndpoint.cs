@@ -30,7 +30,7 @@ namespace NewMicroservice.Catalog.Api.Features.Courses.Delete
             group.MapDelete("/{id:guid}",
                     async (IMediator mediator, Guid id) =>
                         (await mediator.Send(new DeleteCourseCommand(id))).ToGenericResult())
-                .WithName("DeleteCourse");
+                .WithName("DeleteCourse").RequireAuthorization(policyNames: "InstructorPolicy");
 
             return group;
         }

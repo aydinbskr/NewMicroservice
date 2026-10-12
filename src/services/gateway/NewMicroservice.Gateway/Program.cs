@@ -1,3 +1,4 @@
+using NewMicroservice.Shared.Extensions;
 using NewMicroservice.Shared.Options;
 
 var builder = WebApplication.CreateBuilder(args);

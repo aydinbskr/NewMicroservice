@@ -55,6 +55,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewMicroservice.Gateway", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewMicroservice.Bus", "src\services\shared\NewMicroservice.Bus\NewMicroservice.Bus.csproj", "{91562330-34D7-4A84-B665-DA91A9064DEE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ui", "ui", "{98531907-5361-4042-8F66-25BF695D525A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewMicroservice.Web", "src\NewMicroservice\NewMicroservice.Web.csproj", "{5F191948-0B27-4F77-9C71-99A004199D68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +117,10 @@ Global
 		{91562330-34D7-4A84-B665-DA91A9064DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91562330-34D7-4A84-B665-DA91A9064DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91562330-34D7-4A84-B665-DA91A9064DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F191948-0B27-4F77-9C71-99A004199D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F191948-0B27-4F77-9C71-99A004199D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F191948-0B27-4F77-9C71-99A004199D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F191948-0B27-4F77-9C71-99A004199D68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +150,8 @@ Global
 		{4EEA6990-A43D-4670-A626-809828D8ADFB} = {7249F002-0878-4C2C-8206-197749E35DCA}
 		{222BF1D3-96B9-469E-82CB-7CF5A92F964B} = {4EEA6990-A43D-4670-A626-809828D8ADFB}
 		{91562330-34D7-4A84-B665-DA91A9064DEE} = {23F6A490-61CE-48DB-A152-018BF50AC8FB}
+		{98531907-5361-4042-8F66-25BF695D525A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{5F191948-0B27-4F77-9C71-99A004199D68} = {98531907-5361-4042-8F66-25BF695D525A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB0FA828-6673-4701-B7F9-2A347B4F5EC9}

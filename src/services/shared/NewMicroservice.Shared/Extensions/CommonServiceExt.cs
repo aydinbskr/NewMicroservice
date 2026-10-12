@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
+using NewMicroservice.Shared.ExceptionHandlers;
 using NewMicroservice.Shared.Services;
 using System.Reflection;
 
@@ -22,7 +23,7 @@ namespace NewMicroservice.Shared.Extensions
            
             TypeAdapterConfig.GlobalSettings.Scan(assembly.Assembly);
             //services.AddAutoMapper(assembly);
-            //services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddExceptionHandler<GlobalExceptionHandler>();
             return services;
         }
     }

@@ -31,7 +31,7 @@ namespace NewMicroservice.Catalog.Api.Features.Categories.GetAll
                     async (IMediator mediator) =>
                         (await mediator.Send(new GetAllCategoriesQuery())).ToGenericResult())
                 .MapToApiVersion(1, 0)
-                .WithName("GetAllCategory");
+                .WithName("GetAllCategory").RequireAuthorization(policyNames: "ClientCredential");
 
 
             return group;

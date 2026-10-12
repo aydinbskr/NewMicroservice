@@ -10,7 +10,8 @@ namespace NewMicroservice.Catalog.Api.Features.Courses.Update
                     async (UpdateCourseCommand command, IMediator mediator) =>
                         (await mediator.Send(command)).ToGenericResult())
                 .WithName("UpdateCourse")
-                .AddEndpointFilter<ValidationFilter<UpdateCourseCommand>>();
+                .AddEndpointFilter<ValidationFilter<UpdateCourseCommand>>()
+                .RequireAuthorization(policyNames: "InstructorPolicy");
 
             return group;
         }
